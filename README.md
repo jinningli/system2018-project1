@@ -181,13 +181,13 @@ http://linux.die.net/man/2/ptrace
 
 int main()
 {
-    printf("\nOh, Fantasy!\n");
+    printf("Oh, Fantasy!\n");
     return 0;
 }
 ```
-它将打印出 `\nOh, Fantasy!\n`。
+它将打印出 `Oh, Fantasy!\n`。
 
-现在你要做的是按照文件中的提示补全`reverse.c`中的代码（有`TODO`的地方），使得`reverse.c`在通过ptrace追踪`fantasy.c`时，一旦检测到`fantasy.c`调用了 `SYS_write` 系统调用的时候，通过修改系统调用的参数把write要输出的字符串反转，即`\n!ysatnaF ,hO\n`，再进行系统调用。当然，你也可以不按照`reverse.c`的模版来写，自由发挥是资瓷的。
+现在你要做的是按照文件中的提示补全`reverse.c`中的代码（有`TODO`的地方），使得`reverse.c`在通过ptrace追踪`fantasy.c`时，一旦检测到`fantasy.c`调用了 `SYS_write` 系统调用的时候，通过修改系统调用的参数把write要输出的字符串反转，即`\n!ysatnaF ,hO`，再进行系统调用。当然，你也可以不按照`reverse.c`的模版来写，自由发挥是资瓷的。
 
 补全好以后运行的步骤是先编译`fantasy.c`：
 ```

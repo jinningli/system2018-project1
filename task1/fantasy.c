@@ -2,6 +2,6 @@
 
 int main()
 {
-    printf("\nOh, Fantasy!\n");
+    printf("Oh, Fantasy!\n");
     return 0;
 }
