@@ -14,10 +14,15 @@ ptrace是process和trace的简写，直译为进程跟踪。它提供了一种�
 - 安装好后在软件中安装一个Ubantu 16.04，点击就装
 #### 2. 悄悄使用本可爱的助教实验室的服务器
 使用ssh链接到服务器，密码是```system2018```
+
 **[注意]**
+
 禁止查看和编辑服务器上别人的代码
+
 跑完后记得清理掉自己的代码哦`rm -r ~/system/Yourname`
+
 密码不要外传
+
 不要运行project1以外的程序
 ```
 ssh jinning@anl.sjtu.edu.cn
