@@ -113,67 +113,54 @@ request参数决定了ptrace的具体功能：
 
 1.PTRACE_TRACEME
 `ptrace(PTRACE_TRACEME,0 ,0 ,0)`
-
 描述：子进程使用，使得本进程被其父进程所跟踪。
 
 2.PTRACE\_PEEKTEXT, PTRACE\_PEEKDATA
 `ptrace(PTRACE_PEEKDATA, pid, addr, data)`
-
 描述：从内存地址中读取一个字，数据地址由函数返回,pid表示被跟踪的子进程，内存地址由addr给出，data参数被忽略。
 
 3.PTRACE\_POKETEXT, PTRACE\_POKEDATA
 `ptrace(PTRACE_POKEDATA, pid, addr, data)`
-
 描述：往内存地址中写入一个字。pid表示被跟踪的子进程，内存地址由addr给出，data为所要被写入的数据的地址。
 
 4.PTRACE_PEEKUSER
 `ptrace(PTRACE_PEEKUSER, pid, addr, data)`
-
 描述：从USER区域中读取一个字节，pid表示被跟踪的子进程，addr表示读取数据在USER区域的偏移量，返回值为函数返回值，data参数被忽略。
 
 5.PTRACE_POKEUSER
 `ptrace(PTRACE_POKEUSER, pid, addr, data)`
-
 描述：往USER区域中写入一个字节，pid表示被跟踪的子进程，USER区域地址由addr给出，data为需写入的数据。
 
 6.PTRACE_CONT
 `ptrace(PTRACE_CONT, pid, 0, signal)`
-
 描述：继续执行。pid表示被跟踪的子进程，signal为0则忽略引起调试进程中止的信号，若不为0则继续处理信号signal。
 
 7.PTRACE_SYSCALL
 `ptrace(PTRACE_SYSCALL, pid, 0, signal)`
-
 描述：继续执行。pid表示被跟踪的子进程，signal为0则忽略引起调试进程中止的信号，若不为0则继续处理信号signal。与PTRACE_CONT不同的是进行系统调用跟踪。在被跟踪进程继续运行直到调用系统调用开始或结束时，被跟踪进程被中止，并通知父进程。
 
 8.PTRACE_KILL
 `ptrace(PTRACE_KILL,pid)`
-
 描述：杀掉子进程，使它退出。pid表示被跟踪的子进程。
 
 9.PTRACE_SINGLESTEP
 `ptrace(PTRACE_SINGLESTEP, pid, 0, signal)`
-
 描述：设置单步执行标志，单步执行一条指令。pid表示被跟踪的子进程。signal为0则忽略引起调试进程中止的信号，若不为0则继续处理信号signal。当被跟踪进程单步执行完一个指令后，被跟踪进程被中止，并通知父进程。
 
 10.PTRACE_ATTACH
 `ptrace(PTRACE_ATTACH, pid)`
-
 描述：跟踪指定pid 进程。pid表示被跟踪进程。被跟踪进程将成为当前进程的子进程，并进入中止状态。
 
 11.PTRACE_DETACH
 `ptrace(PTRACE_DETACH, pid)`
-
 描述：结束跟踪。 pid表示被跟踪的子进程。结束跟踪后被跟踪进程将继续执行。
 
 12.PTRACE_GETREGS
 `ptrace(PTRACE_GETREGS, pid, 0, data)`
-
 描述：读取寄存器值，pid表示被跟踪的子进程，data为用户变量地址用于返回读到的数据。
 
 13.PTRACE_SETREGS
 `ptrace(PTRACE_SETREGS, pid, 0, data)`
-
 描述：设置寄存器值，pid表示被跟踪的子进程，data为用户数据地址。
 
 >更多详细的信息可以参考linux下man手册:
