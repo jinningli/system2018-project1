@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <sys/reg.h>
 #include <sys/syscall.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 const int long_size = sizeof(long);//字长 若本机是64位，则字长应为8字节long
 

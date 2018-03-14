@@ -14,7 +14,7 @@ ptrace是process和trace的简写，直译为进程跟踪。它提供了一种�
 不妥。解决方案:
 #### 1. 虚拟机
 - Parallels 软件 葡萄下载： https://pt.sjtu.edu.cn/details.php?id=140821
-- 安装好后在软件中安装一个Ubantu 16.04，点击就装
+- 安装好后在软件中安装一个Ubuntu 16.04，点击就装
 #### 2. 悄悄使用本可爱的助教实验室的服务器
 使用ssh链接到服务器，密码是```system2018```
 
@@ -125,11 +125,11 @@ request参数决定了ptrace的具体功能：
 
 2.PTRACE\_PEEKTEXT, PTRACE\_PEEKDATA
 `ptrace(PTRACE_PEEKDATA, pid, addr, data)`
-描述：从内存地址中读取一个字，数据地址由函数返回,pid表示被跟踪的子进程，内存地址由addr给出，data参数被忽略。
+描述：从内存地址中读取一个字，数据由函数返回,pid表示被跟踪的子进程，内存地址由addr给出，data参数被忽略。
 
 3.PTRACE\_POKETEXT, PTRACE\_POKEDATA
 `ptrace(PTRACE_POKEDATA, pid, addr, data)`
-描述：往内存地址中写入一个字。pid表示被跟踪的子进程，内存地址由addr给出，data为所要被写入的数据的地址。
+描述：往内存地址中写入一个字。pid表示被跟踪的子进程，内存地址由addr给出，data为所要被写入的数据。
 
 4.PTRACE_PEEKUSER
 `ptrace(PTRACE_PEEKUSER, pid, addr, data)`
