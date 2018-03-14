@@ -39,7 +39,8 @@ int main(int argc, char** argv) {
 			struct user_regs_struct regs;
 			/**
 			* TODO 1.使用 PTRACE_GETREGS 获取所有寄存器值存在 &regs 里
-			* TODO 2.使用 PTRACE_PEEKTEXT 获取当前指令内容 存在instr里 注意读取的是一个字，32位
+			* TODO 2.使用 PTRACE_PEEKTEXT 获取当前指令内容 存在instr里 注意读取的是一个字，64位
+			* 虽然X86-64是CISC，指令长度不一定是64位，总之我们就取64位的内存出来看看嘛
 			* X86-64中，RIP寄存器用于指向当前执行的指令位置
 			* 可以通过regs.rip来访问 RIP寄存器的值
 			**/
