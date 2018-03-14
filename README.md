@@ -251,6 +251,75 @@ objdump -d interesting
 ```
 来检查 `RIP` 和 `Instruction` 输出的是不是正确。
 
+## 尝试设置断点
+为了让大家减轻负担，这部分不用提交。不需要你写代码，只要看看代码，跑一跑，体验一下就行了。断点的代码位于Task2文件夹里
+
+### 通过int 3指令在调试器中设定断点
+要在被调试进程中的某个目标地址上设定一个断点，调试器需要做下面两件事情：
+
+- 保存目标地址上的数据
+- 将`目标地址`上的第一个字节替换为int 3指令(`0xcc`)
+
+然后，当调试器向操作系统请求开始运行进程时，进程最终一定会碰到int 3指令。此时进程停止，操作系统将发送一个信号。这时就是调试器再次出马的时候了，接收到一个其子进程（或被跟踪进程）停止的信号，然后调试器要做下面几件事：
+
+- 在目标地址上用原来的指令替换掉int 3
+
+- 将被跟踪进程中的指令指针向后递减1。这么做是必须的，因为现在指令指针指向的是已经执行过的int 3之后的下一条指令。
+
+- 由于进程此时仍然是停止的，用户可以同被调试进程进行某种形式的交互。这里调试器可以让你查看变量的值，检查调用栈等等。
+
+- 当用户希望进程继续运行时，调试器负责将断点再次加到目标地址上（由于在第一步中断点已经被移除了），除非用户希望取消断点。
+
+### 运行方法
+1. 编译`breakpoint.c`和`interesting.s`
+```
+gcc breakpoint.c -o breakpoint
+as interesting.s -o interesting.o
+ld -o interesting interesting.o
+```
+
+2. 使用`objdump -d interesting`来查看汇编指令对应的指令地址，看看你想在哪停下来。输出可能长这样
+```
+interesting:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000004000b0 <_start>:
+  4000b0:	b8 04 00 00 00       	mov    $0x4,%eax
+  4000b5:	bb 01 00 00 00       	mov    $0x1,%ebx
+  4000ba:	b9 e3 00 60 00       	mov    $0x6000e3,%ecx
+  4000bf:	ba 05 00 00 00       	mov    $0x5,%edx
+  4000c4:	cd 80                	int    $0x80
+  4000c6:	b8 04 00 00 00       	mov    $0x4,%eax
+  4000cb:	bb 01 00 00 00       	mov    $0x1,%ebx
+  4000d0:	b9 e9 00 60 00       	mov    $0x6000e9,%ecx
+  4000d5:	ba 0d 00 00 00       	mov    $0xd,%edx
+  4000da:	cd 80                	int    $0x80
+  4000dc:	b8 01 00 00 00       	mov    $0x1,%eax
+  4000e1:	cd 80                	int    $0x80
+
+```
+
+比如我想要在指令地址为`0x4000c6`的地方设置断点，也就是第一次系统调用(`int $0x80`)执行完后。那么运行：
+```
+./breakpoint interesting 0x4000c6
+```
+
+然后就可以看到进程在`0x4000c6`停下了：
+```
+target started. will run 'interesting'
+Child started. EIP = 0x004000b0
+Original data at 0x004000c6: 0x000004b8
+After trap, data at 0x004000c6: 0x000004cc
+Oh,
+Child got a signal: Trace/breakpoint trap
+Child stopped at EIP = 0x004000c6
+
+interesting!
+Child exited
+```
+
 ## 提交
 把改好的`project1`整个文件夹压缩成`学号-姓名-project1.zip`发送到`137645534@qq.com`，邮件名`学号-姓名-project1`.
 
